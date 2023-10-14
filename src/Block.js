@@ -1,12 +1,14 @@
 import React from 'react';
 import './App.css'
-function Block({value,onClick})
-{
+function Block({ value, onClick }) {
 
-  
-    return(
+    function handler() {
+        console.log("hello", onClick)
+    }
+
+    return (
         <div className="block" onClick={onClick}>
-           {value}
+            {value}
         </div>
     )
 }
