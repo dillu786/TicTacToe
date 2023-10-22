@@ -10,4 +10,5 @@ function Block({value,onClick})
         </div>
     )
 }
+
 export default Block;
