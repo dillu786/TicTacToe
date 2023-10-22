@@ -3,11 +3,23 @@ body{
   display: flex;
   text-align: center;
   justify-content: center;
-  min-height: 100vh;
-  margin-top: 50%;
+  background-color: rgb(77, 73, 73);
+  max-height: 100vh;
+  margin-top: 100px;
 }
-
+.head{
+  display: flex;
+  text-align: center;
+  margin-top: 100px;
+  color:brown;
+  font-size: 3rem;
+}
+.links{
+  color:chocolate;
+  font-size: 2rem;
+}
 .container{
+  display: flex;
   height: 310px;
   width: 310px;
   background-color: chocolate;
