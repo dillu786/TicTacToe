@@ -13,6 +13,7 @@ function App() {
   const [doublePlayer, setDoublePlayer] = useState(false);
   const [toss, setToss] = useState(false)
   const [TossResult, setTossResult] = useState("")
+  const [computerFirstPosition, setComputerFirstPosition] = useState("")
   const winnerCondition = [
 
     [0, 1, 2],
@@ -31,7 +32,7 @@ function App() {
     setHideSudoku(false);
     setSinglePlayer(true);
     setDoublePlayer(false);
-    ComputerFirstMove();
+    // ComputerFirstMove();
   }
   function playWithAnotherPlayer() {
     setToss(true)
@@ -42,6 +43,13 @@ function App() {
   }
 
   function Move(index) {
+    console.log("hh")
+    console.log(document.getElementById(index))
+    let div = document.getElementById(index);
+    if (div) {
+      div.style.pointerEvents = "none";   // disable mouse interactions
+      div.style.color = "white";         // make the div look semi-transparent
+    }
     if (singlePlayer) {
       PlaySinlePlayer(index);
     }
@@ -139,7 +147,18 @@ function App() {
   }
 
 
+  console.log(document)
 
+  useEffect(() => {
+
+    let div = document.getElementById(computerFirstPosition)
+    if (div) {
+      div.style.color = "white"
+      div.style.pointerEvents = "none";   // disable mouse interactions
+
+    }
+
+  }, [computerFirstPosition])
 
 
   var corners = [0, 2, 6, 8];
@@ -149,7 +168,7 @@ function App() {
     let position = corners[Math.floor(Math.random() * corners.length)];
     const squaresCopy = [...squares];
     squaresCopy[position] = "X";
-
+    setComputerFirstPosition(position)
     setComputerMoveCounter(computerMoveCounter + 1);
     setSquares(squaresCopy);
   }
@@ -163,6 +182,7 @@ function App() {
 
   let copySquares = [...squares];
   function PlaySinlePlayer(index) {
+    console.log(index, playerMoveCounter)
 
 
     // Bring all the winning condition array where 0's are present
@@ -189,6 +209,12 @@ function App() {
     }
     else if (playerMoveCounter === 0 && index !== 4) {
       if (computerFirstMoveIndex === 8 && index == 7) {
+        let div = document.getElementById("2")
+        console.log(div)
+        if (div) {
+          div.style.color = "white"
+          div.style.pointerEvents = "none"
+        }
         copySquares[2] = 'X';
         setSquares(copySquares);
         setComputerMoveCounter(computerMoveCounter + 1);
@@ -197,6 +223,12 @@ function App() {
       }
 
       if (computerFirstMoveIndex === 8 && index == 5) {
+        let div = document.getElementById("6")
+        console.log(div)
+        if (div) {
+          div.style.color = "white"
+          div.style.pointerEvents = "none"
+        }
         copySquares[6] = 'X';
         setSquares(copySquares);
         setComputerMoveCounter(computerMoveCounter + 1);
@@ -204,6 +236,12 @@ function App() {
         return;
       }
       if (computerFirstMoveIndex === 6 && index == 7) {
+        let div = document.getElementById("0")
+        console.log(div)
+        if (div) {
+          div.style.color = "white"
+          div.style.pointerEvents = "none"
+        }
         copySquares[0] = 'X';
         setSquares(copySquares);
         setComputerMoveCounter(computerMoveCounter + 1);
@@ -211,6 +249,12 @@ function App() {
         return;
       }
       if (computerFirstMoveIndex === 6 && index == 3) {
+        let div = document.getElementById("8")
+        console.log(div)
+        if (div) {
+          div.style.color = "white"
+          div.style.pointerEvents = "none"
+        }
         copySquares[8] = 'X';
         setSquares(copySquares);
         setComputerMoveCounter(computerMoveCounter + 1);
@@ -218,6 +262,12 @@ function App() {
         return;
       }
       if (computerFirstMoveIndex === 2 && index == 5) {
+        let div = document.getElementById("0")
+        console.log(div)
+        if (div) {
+          div.style.color = "white"
+          div.style.pointerEvents = "none"
+        }
         copySquares[0] = 'X';
         setSquares(copySquares);
         setComputerMoveCounter(computerMoveCounter + 1);
@@ -225,6 +275,12 @@ function App() {
         return;
       }
       if (computerFirstMoveIndex === 2 && index == 1) {
+        let div = document.getElementById("8")
+        console.log(div)
+        if (div) {
+          div.style.color = "white"
+          div.style.pointerEvents = "none"
+        }
         copySquares[8] = 'X';
         setSquares(copySquares);
         setComputerMoveCounter(computerMoveCounter + 1);
@@ -232,6 +288,12 @@ function App() {
         return;
       }
       if (computerFirstMoveIndex === 0 && index == 1) {
+        let div = document.getElementById("6")
+        console.log(div)
+        if (div) {
+          div.style.color = "white"
+          div.style.pointerEvents = "none"
+        }
         copySquares[6] = 'X';
         setSquares(copySquares);
         setComputerMoveCounter(computerMoveCounter + 1);
@@ -239,6 +301,12 @@ function App() {
         return;
       }
       if (computerFirstMoveIndex === 0 && index == 3) {
+        let div = document.getElementById("2")
+        console.log(div)
+        if (div) {
+          div.style.color = "white"
+          div.style.pointerEvents = "none"
+        }
         copySquares[2] = 'X';
         setComputerMoveCounter(computerMoveCounter + 1);
         setSquares(copySquares);
@@ -357,6 +425,12 @@ function App() {
 
     for (let key of map.keys()) {
       if (map.get(key) === maxCount) {
+        let div = document.getElementById(key)
+        console.log(div, "yy")
+        if (div) {
+          div.style.color = "white"
+          div.style.pointerEvents = "none"
+        }
         copySquares[key] = 'X'
         setSquares(copySquares);
         setComputerMoveCounter(computerMoveCounter + 1);
@@ -568,6 +642,8 @@ function App() {
 
     setTimeout(() => {
       setToss(true)
+      ComputerFirstMove();
+
     }, 8000);
 
   }
@@ -615,21 +691,21 @@ function App() {
             {toss && <div className="container">
               <div>
                 <div className='box'>
-                  <Block value={squares[0]} onClick={() => Move(0)} />
-                  <Block value={squares[1]} onClick={() => Move(1)} />
-                  <Block value={squares[2]} onClick={() => Move(2)} />
+                  <Block value={squares[0]} onClick={() => Move(0)} id="0" />
+                  <Block value={squares[1]} onClick={() => Move(1)} id="1" />
+                  <Block value={squares[2]} onClick={() => Move(2)} id="2" />
                 </div>
 
                 <div className='box'>
-                  <Block value={squares[3]} onClick={() => Move(3)} />
-                  <Block value={squares[4]} onClick={() => Move(4)} />
-                  <Block value={squares[5]} onClick={() => Move(5)} />
+                  <Block value={squares[3]} onClick={() => Move(3)} id="3" />
+                  <Block value={squares[4]} onClick={() => Move(4)} id="4" />
+                  <Block value={squares[5]} onClick={() => Move(5)} id="5" />
                 </div>
 
                 <div className='box'>
-                  <Block value={squares[6]} onClick={() => Move(6)} />
-                  <Block value={squares[7]} onClick={() => Move(7)} />
-                  <Block value={squares[8]} onClick={() => Move(8)} />
+                  <Block value={squares[6]} onClick={() => Move(6)} id="6" />
+                  <Block value={squares[7]} onClick={() => Move(7)} id="7" />
+                  <Block value={squares[8]} onClick={() => Move(8)} id="8" />
                 </div>
 
 
