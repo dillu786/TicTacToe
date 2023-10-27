@@ -708,6 +708,10 @@ function App() {
                   <Block value={squares[8]} onClick={() => Move(8)} id="8" />
                 </div>
 
+                <div>
+                  <button>Reset</button>
+                </div>
+
 
               </div>
             </div>}
