@@ -638,13 +638,13 @@ function App() {
     let result = Math.random() < 0.5 ? 'Computer Move First' : 'You Move First';
     setTimeout(() => {
       setTossResult(result)
-    }, 4000);
+    }, 10);
 
     setTimeout(() => {
       setToss(true)
       ComputerFirstMove();
 
-    }, 8000);
+    }, 80);
 
   }
 
