@@ -641,7 +641,7 @@ const onReset=()=>{
    if(singlePlayer)
    {
       let sudoku=Array(9).fill(null);
-      let position=allPositions[Math.floor(Math.random( )* 9)];
+      let position=corners[Math.floor(Math.random( )* 9)];
       const squaresCopy=[...sudoku];
       squaresCopy[position]="X";
       
