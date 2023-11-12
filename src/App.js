@@ -13,7 +13,8 @@ function App() {
   const [doublePlayer, setDoublePlayer] = useState(false);
   const [toss, setToss] = useState(false)
   const [TossResult, setTossResult] = useState("")
-  const [computerFirstPosition, setComputerFirstPosition] = useState("")
+  const [computerFirstPosition, setComputerFirstPosition] = useState("");
+ const allPositions=[0,1,2,3,4,5,6,7,8];
   const winnerCondition = [
 
     [0, 1, 2],
