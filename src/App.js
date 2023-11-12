@@ -633,7 +633,28 @@ function App() {
 
     }
   }
+const onReset=()=>{
 
+   console.log('reset');
+   
+   if(singlePlayer)
+   {
+      let sudoku=Array(9).fill(null);
+      let position=allPositions[Math.floor(Math.random( )* 9)];
+      const squaresCopy=[...sudoku];
+      squaresCopy[position]="X";
+      
+      setComputerMoveCounter(1);
+      setPlayerMoveCounter(0);
+      setSquares(squaresCopy);
+   }
+   else{
+      setSquares(Array(9).fill(null));
+   }
+
+
+
+}
   function tossResult() {
     let result = Math.random() < 0.5 ? 'Computer Move First' : 'You Move First';
     setTimeout(() => {
@@ -709,7 +730,9 @@ function App() {
                 </div>
 
                 <div>
-                  <button>Reset</button>
+                   <button style={{backgroundColor: 'red',borderRadius:10, height:40 ,width:60 , margin:10}  } 
+   
+                        onClick={onReset}>Reset</button>
                 </div>
 
 
