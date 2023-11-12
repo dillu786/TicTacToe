@@ -1,7 +1,6 @@
- 
-import { useEffect, useState } from 'react';
-import './App.css';
-import Block from './Block';
+import { useEffect, useState } from "react";
+import "./App.css";
+import Block from "./Block";
 function App() {
   const [squares, setSquares] = useState(Array(9).fill(null));
   const [isX, setIsX] = useState(true);
@@ -11,12 +10,10 @@ function App() {
   const [hideSudoku, setHideSudoku] = useState(true);
   const [singlePlayer, setSinglePlayer] = useState(false);
   const [doublePlayer, setDoublePlayer] = useState(false);
-  const [toss, setToss] = useState(false)
-  const [TossResult, setTossResult] = useState("")
+  const [toss, setToss] = useState(false);
+  const [TossResult, setTossResult] = useState("");
   const [computerFirstPosition, setComputerFirstPosition] = useState("");
- const allPositions=[0,1,2,3,4,5,6,7,8];
   const winnerCondition = [
-
     [0, 1, 2],
     [3, 4, 5],
     [6, 7, 8],
@@ -24,71 +21,60 @@ function App() {
     [1, 4, 7],
     [2, 5, 8],
     [2, 4, 6],
-    [0, 4, 8]
+    [0, 4, 8],
   ];
 
   function playWithComputer() {
-    setToss(false)
-    console.log('Play with computer');
+    setToss(false);
+    console.log("Play with computer");
     setHideSudoku(false);
     setSinglePlayer(true);
     setDoublePlayer(false);
     // ComputerFirstMove();
   }
   function playWithAnotherPlayer() {
-    setToss(true)
-    console.log('play with another player')
+    setToss(true);
+    console.log("play with another player");
     setHideSudoku(false);
     setDoublePlayer(true);
     setSinglePlayer(false);
   }
 
   function Move(index) {
-    console.log("hh")
-    console.log(document.getElementById(index))
+    console.log("hh");
+    console.log(document.getElementById(index));
     let div = document.getElementById(index);
     if (div) {
-      div.style.pointerEvents = "none";   // disable mouse interactions
-      div.style.color = "white";         // make the div look semi-transparent
+      div.style.pointerEvents = "none"; // disable mouse interactions
+      //div.style.color = "white";         // make the div look semi-transparent
     }
     if (singlePlayer) {
       PlaySinlePlayer(index);
-    }
-
-    else {
+    } else {
       PlayDoublePlayer(index);
     }
-
-
   }
 
   function CheckWinner(squaresCopy) {
     console.log(squaresCopy);
 
     for (let j = 0; j < 8; j++) {
-
       var temp;
       var matched = false;
       var conditionArray = winnerCondition[j];
       console.log(conditionArray);
       for (let i = 0; i < 3; i++) {
-
-        console.log(conditionArray[j])
-
+        console.log(conditionArray[j]);
 
         if (i !== 0) {
-
-
-
           let element = squaresCopy[conditionArray[i]];
           console.log(squaresCopy);
           console.log(temp + "temp" + i + "i");
-          console.log(element + 'element');
+          console.log(element + "element");
           if (temp !== element && element !== null) {
             matched = false;
             break;
-          }
-          else {
+          } else {
             if (temp === element && i === 2) {
               matched = true;
               let copySquares = [...squares];
@@ -99,124 +85,98 @@ function App() {
               //          indexOfX=i;;
               //       }
               //  })
-              copySquares[conditionArray[i]] = 'X';
+              copySquares[conditionArray[i]] = "X";
               setSquares(copySquares);
               return matched;
-
             }
           }
-
-        }
-
-        else {
+        } else {
           console.log(i + "conditionArray" + conditionArray[i]);
           let ele = squaresCopy[conditionArray[i]];
-          if (ele === null)
-            break;
+          if (ele === null) break;
           console.log(ele);
           temp = ele;
         }
-
-
-
       }
       console.log(matched);
-
     }
 
     return matched;
   }
 
-
   const checkTicTacToe = (copySquares) => {
-
     let matched = false;
     for (let i = 0; i < winnerCondition.length; i++) {
       let arr = winnerCondition[i];
       let firstelent = copySquares[arr[0]];
       let count = 1;
       for (let j = 1; j < 3; j++) {
-        if (firstelent === 'X' && firstelent === copySquares[arr[j]]) {
-          count++
+        if (firstelent === "X" && firstelent === copySquares[arr[j]]) {
+          count++;
         }
-        if (count === 3)
-          matched = true;
-
+        if (count === 3) matched = true;
       }
     }
     return matched;
-  }
+  };
 
-
-  console.log(document)
+  console.log(document);
 
   useEffect(() => {
-
-    let div = document.getElementById(computerFirstPosition)
+    let div = document.getElementById(computerFirstPosition);
     if (div) {
-      div.style.color = "white"
-      div.style.pointerEvents = "none";   // disable mouse interactions
-
+      //div.style.color = "white"
+      div.style.pointerEvents = "none"; // disable mouse interactions
     }
-
-  }, [computerFirstPosition])
-
+  }, [computerFirstPosition]);
 
   var corners = [0, 2, 6, 8];
   const ComputerFirstMove = () => {
-
-
     let position = corners[Math.floor(Math.random() * corners.length)];
     const squaresCopy = [...squares];
     squaresCopy[position] = "X";
-    setComputerFirstPosition(position)
+    setComputerFirstPosition(position);
     setComputerMoveCounter(computerMoveCounter + 1);
     setSquares(squaresCopy);
-  }
+  };
 
   const diagonalcornerskeyvalue = {
-    '0': '8',
-    '2': '6',
-    '6': '2',
-    '8': '0'
-  }
+    0: "8",
+    2: "6",
+    6: "2",
+    8: "0",
+  };
 
   let copySquares = [...squares];
   function PlaySinlePlayer(index) {
-    console.log(index, playerMoveCounter)
-
+    console.log(index, playerMoveCounter);
 
     // Bring all the winning condition array where 0's are present
 
-
-    copySquares[index] = '0';
+    copySquares[index] = "0";
     setPlayerMoveCounter(playerMoveCounter + 1);
     var computerFirstMoveIndex;
     copySquares.filter((ele, i) => {
-      if (ele === 'X')
-        computerFirstMoveIndex = i;
+      if (ele === "X") computerFirstMoveIndex = i;
     });
     if (playerMoveCounter === 0 && index === 4) {
       //  Move 2 -> computer plays on the diagonal index of its first move
       // computer's first move index
 
-
-
       let diagonalElement = diagonalcornerskeyvalue[computerFirstMoveIndex];
-      copySquares[+diagonalElement] = 'X';
+      copySquares[+diagonalElement] = "X";
       setSquares(copySquares);
       setComputerMoveCounter(computerMoveCounter + 1);
       return;
-    }
-    else if (playerMoveCounter === 0 && index !== 4) {
+    } else if (playerMoveCounter === 0 && index !== 4) {
       if (computerFirstMoveIndex === 8 && index == 7) {
-        let div = document.getElementById("2")
-        console.log(div)
+        let div = document.getElementById("2");
+        console.log(div);
         if (div) {
-          div.style.color = "white"
-          div.style.pointerEvents = "none"
+          //div.style.color = "white"
+          div.style.pointerEvents = "none";
         }
-        copySquares[2] = 'X';
+        copySquares[2] = "X";
         setSquares(copySquares);
         setComputerMoveCounter(computerMoveCounter + 1);
         setZeroPlacedAdjacentToX(true);
@@ -224,121 +184,113 @@ function App() {
       }
 
       if (computerFirstMoveIndex === 8 && index == 5) {
-        let div = document.getElementById("6")
-        console.log(div)
+        let div = document.getElementById("6");
+        console.log(div);
         if (div) {
-          div.style.color = "white"
-          div.style.pointerEvents = "none"
+          //div.style.color = "white"
+          div.style.pointerEvents = "none";
         }
-        copySquares[6] = 'X';
+        copySquares[6] = "X";
         setSquares(copySquares);
         setComputerMoveCounter(computerMoveCounter + 1);
         setZeroPlacedAdjacentToX(true);
         return;
       }
       if (computerFirstMoveIndex === 6 && index == 7) {
-        let div = document.getElementById("0")
-        console.log(div)
+        let div = document.getElementById("0");
+        console.log(div);
         if (div) {
-          div.style.color = "white"
-          div.style.pointerEvents = "none"
+          //div.style.color = "white"
+          div.style.pointerEvents = "none";
         }
-        copySquares[0] = 'X';
+        copySquares[0] = "X";
         setSquares(copySquares);
         setComputerMoveCounter(computerMoveCounter + 1);
         setZeroPlacedAdjacentToX(true);
         return;
       }
       if (computerFirstMoveIndex === 6 && index == 3) {
-        let div = document.getElementById("8")
-        console.log(div)
+        let div = document.getElementById("8");
+        console.log(div);
         if (div) {
-          div.style.color = "white"
-          div.style.pointerEvents = "none"
+          //div.style.color = "white"
+          div.style.pointerEvents = "none";
         }
-        copySquares[8] = 'X';
+        copySquares[8] = "X";
         setSquares(copySquares);
         setComputerMoveCounter(computerMoveCounter + 1);
         setZeroPlacedAdjacentToX(true);
         return;
       }
       if (computerFirstMoveIndex === 2 && index == 5) {
-        let div = document.getElementById("0")
-        console.log(div)
+        let div = document.getElementById("0");
+        console.log(div);
         if (div) {
-          div.style.color = "white"
-          div.style.pointerEvents = "none"
+          //div.style.color = "white"
+          div.style.pointerEvents = "none";
         }
-        copySquares[0] = 'X';
+        copySquares[0] = "X";
         setSquares(copySquares);
         setComputerMoveCounter(computerMoveCounter + 1);
         setZeroPlacedAdjacentToX(true);
         return;
       }
       if (computerFirstMoveIndex === 2 && index == 1) {
-        let div = document.getElementById("8")
-        console.log(div)
+        let div = document.getElementById("8");
+        console.log(div);
         if (div) {
-          div.style.color = "white"
-          div.style.pointerEvents = "none"
+          //div.style.color = "white"
+          div.style.pointerEvents = "none";
         }
-        copySquares[8] = 'X';
+        copySquares[8] = "X";
         setSquares(copySquares);
         setComputerMoveCounter(computerMoveCounter + 1);
         setZeroPlacedAdjacentToX(true);
         return;
       }
       if (computerFirstMoveIndex === 0 && index == 1) {
-        let div = document.getElementById("6")
-        console.log(div)
+        let div = document.getElementById("6");
+        console.log(div);
         if (div) {
-          div.style.color = "white"
-          div.style.pointerEvents = "none"
+          //div.style.color = "white"
+          div.style.pointerEvents = "none";
         }
-        copySquares[6] = 'X';
+        copySquares[6] = "X";
         setSquares(copySquares);
         setComputerMoveCounter(computerMoveCounter + 1);
         setZeroPlacedAdjacentToX(true);
         return;
       }
       if (computerFirstMoveIndex === 0 && index == 3) {
-        let div = document.getElementById("2")
-        console.log(div)
+        let div = document.getElementById("2");
+        console.log(div);
         if (div) {
-          div.style.color = "white"
-          div.style.pointerEvents = "none"
+          //div.style.color = "white"
+          div.style.pointerEvents = "none";
         }
-        copySquares[2] = 'X';
+        copySquares[2] = "X";
         setComputerMoveCounter(computerMoveCounter + 1);
         setSquares(copySquares);
         setZeroPlacedAdjacentToX(true);
         return;
       }
 
-      if (((computerFirstMoveIndex == 8) && (index == 3 || index == 1)) ||
-        ((computerFirstMoveIndex == 0) && (index == 5 || index == 7)) ||
+      if (
+        (computerFirstMoveIndex == 8 && (index == 3 || index == 1)) ||
+        (computerFirstMoveIndex == 0 && (index == 5 || index == 7)) ||
         (computerFirstMoveIndex == 2 && (index == 3 || index == 7)) ||
         (computerFirstMoveIndex == 6 && (index == 5 || index == 1))
-
       ) {
         if (playerMoveCounter === 1) {
           placeXAtHigherWinningIndex(computerFirstMoveIndex, index);
           return;
         }
-
       }
-
-
-
-
-    }
-
-    else {
+    } else {
       if (computerMoveCounter == 1) {
         placeXAtHigherWinningIndex(computerFirstMoveIndex, index);
         return;
       }
-
 
       if (zeroPlacedAdjacentToX) {
         placeXAtHigherWinningIndex(computerFirstMoveIndex, index);
@@ -347,7 +299,6 @@ function App() {
       }
     }
 
-
     if (playerMoveCounter >= 1) {
       DetermiePositionOfX();
       isWon(copySquares);
@@ -355,25 +306,17 @@ function App() {
       return;
     }
 
-
     placeXAtHigherWinningIndex(computerFirstMoveIndex, index);
-
-
-
   }
-
-
 
   function placeXAtHigherWinningIndex(computerFirstMoveIndex, index) {
     let indexesWhereZeroIsPresent = [];
 
     for (let i = 0; i < 9; i++) {
-      if (copySquares[i] == '0') {
+      if (copySquares[i] == "0") {
         indexesWhereZeroIsPresent.push(i);
       }
     }
-
-
 
     // filter winning array
     let winArr = [...winnerCondition];
@@ -387,80 +330,60 @@ function App() {
             break;
           }
         }
-
-
-
-
       }
     }
-
-
 
     let requiredCorners = [];
 
     for (let j = 0; j < corners.length; j++) {
-
       if (copySquares[corners[j]] == null) {
         requiredCorners.push(corners[j]);
       }
-
-
     }
-
-
-
 
     var map = new Map();
     for (let i = 0; i < requiredCorners.length; i++) {
       let count = 0;
       for (let j = 0; j < winArr.length; j++) {
-        if (winArr[j].includes(requiredCorners[i]))
-          count++
+        if (winArr[j].includes(requiredCorners[i])) count++;
       }
       map.set(requiredCorners[i], count);
-
     }
-
 
     let maxCount = Math.max(...map.values());
 
     for (let key of map.keys()) {
       if (map.get(key) === maxCount) {
-        let div = document.getElementById(key)
-        console.log(div, "yy")
+        let div = document.getElementById(key);
+        console.log(div, "yy");
         if (div) {
-          div.style.color = "white"
-          div.style.pointerEvents = "none"
+          //div.style.color = "white"
+          div.style.pointerEvents = "none";
         }
-        copySquares[key] = 'X'
+        copySquares[key] = "X";
         setSquares(copySquares);
         setComputerMoveCounter(computerMoveCounter + 1);
         return;
       }
     }
-
-
   }
 
   function isWon(copySquares) {
-    let didComputerWin = checkTicTacToe(copySquares)
+    let didComputerWin = checkTicTacToe(copySquares);
     if (didComputerWin) {
       //let toPrint=isX===false?"Player 2 Won":"Player 1 won";
       setSquares(copySquares);
       alert("Computer Won");
 
       return;
-      //setSquares(Array(9).fill(null));   
-    }
-    else {
+      //setSquares(Array(9).fill(null));
+    } else {
       let ifSquaresCompleted = true;
-      copySquares.forEach(element => {
-        if (element === null)
-          ifSquaresCompleted = false;
-
-      })
+      copySquares.forEach((element) => {
+        if (element === null) ifSquaresCompleted = false;
+      });
       if (ifSquaresCompleted) {
-        alert('Draw');
+        alert("Draw");
         return;
       }
     }
@@ -470,7 +393,6 @@ function App() {
     let arrayHavingTwoZero = [];
     let arrayHavingTwoX = [];
     isWon(copySquares);
-
 
     for (let i = 0; i < winnerCondition.length; i++) {
       let arr = winnerCondition[i];
@@ -488,109 +410,87 @@ function App() {
         for (let j = 0; j < squareSubArr.length; j++) {
           let a = squareSubArr[j];
 
-          if (a === 'X') {
+          if (a === "X") {
             xCount++;
-
           }
 
-
-          if (a === '0') {
+          if (a === "0") {
             zerosCount++;
-
-
           }
 
-          if (zerosCount == 2)
-            subArrayHavingTwoZero = true;
+          if (zerosCount == 2) subArrayHavingTwoZero = true;
 
-          if (xCount === 2)
-            subArrayHavingTwoX = true;
-
+          if (xCount === 2) subArrayHavingTwoX = true;
         }
 
         if (subArrayHavingTwoZero) arrayHavingTwoZero.push(i);
         if (subArrayHavingTwoX) arrayHavingTwoX.push(i);
-
       }
     }
 
-
-
-
-
-
     if (arrayHavingTwoX.length > 0) {
-
-
       for (let i = 0; i < arrayHavingTwoX.length; i++) {
         let arr = winnerCondition[arrayHavingTwoX[i]];
         for (let j = 0; j < arr.length; j++) {
           if (copySquares[arr[j]] == null) {
-            copySquares[arr[j]] = 'X';
+            copySquares[arr[j]] = "X";
             setSquares(copySquares);
             return;
           }
         }
-
       }
-
-    }
-
-    else {
-
+    } else {
       if (arrayHavingTwoZero.length > 0) {
         for (let index = 0; index < arrayHavingTwoZero.length; index++) {
-
-          let arr = winnerCondition[arrayHavingTwoZero[index]]
+          let arr = winnerCondition[arrayHavingTwoZero[index]];
           for (let j = 0; j < 3; j++) {
             if (copySquares[arr[j]] === null) {
-              copySquares[arr[j]] = 'X';
+              copySquares[arr[j]] = "X";
               setSquares(copySquares);
               return;
-
             }
           }
-
         }
       }
     }
 
-
     let cornersWhereZerosOrXAreNotPresent = [];
     for (let i = 0; i < corners.length; i++) {
-      if (copySquares[corners[i]] !== '0' && copySquares[corners[i]] !== 'X') {
+      if (copySquares[corners[i]] !== "0" && copySquares[corners[i]] !== "X") {
         cornersWhereZerosOrXAreNotPresent.push(corners[i]);
       }
     }
 
-    let positioinOfXTobeInserted = Math.floor(Math.random() * cornersWhereZerosOrXAreNotPresent.length);
-    copySquares[cornersWhereZerosOrXAreNotPresent[positioinOfXTobeInserted]] = 'X';
-
+    let positioinOfXTobeInserted = Math.floor(
+      Math.random() * cornersWhereZerosOrXAreNotPresent.length
+    );
+    copySquares[cornersWhereZerosOrXAreNotPresent[positioinOfXTobeInserted]] =
+      "X";
 
     setSquares(copySquares);
   }
 
   function PlayDoublePlayer(index) {
-    console.log('Hi');
+    console.log("Hi");
     const squaresCopy = [...squares];
-    squaresCopy[index] = isX === true ? 'X' : '0';
+    squaresCopy[index] = isX === true ? "X" : "0";
     setSquares(squaresCopy);
     setIsX(!isX);
     console.log(squaresCopy);
 
     let didXWin = false;
     let didZeroWin = false;
-    winnerCondition.forEach(arr => {
+    winnerCondition.forEach((arr) => {
       let xCount = 0;
       let zeroCount = 0;
-      arr.forEach(ele => {
-        if (squaresCopy[ele] === 'X') {
+      arr.forEach((ele) => {
+        if (squaresCopy[ele] === "X") {
           xCount++;
         }
         if (squaresCopy[ele] === "0") {
           zeroCount++;
         }
-      })
+      });
 
       if (xCount === 3) {
         didXWin = true;
@@ -600,147 +500,136 @@ function App() {
         didZeroWin = true;
         return;
       }
-
     });
 
-
     if (didXWin) {
-      alert('Player X Won ');
+      alert("Player X Won ");
       return;
     }
     if (didZeroWin) {
-      alert('Player 0 won');
+      alert("Player 0 won");
       return;
     }
-
 
     let ifSquaresCompleted = true;
-    squaresCopy.forEach(element => {
-      if (element === null)
-        ifSquaresCompleted = false;
-
-    })
+    squaresCopy.forEach((element) => {
+      if (element === null) ifSquaresCompleted = false;
+    });
     if (ifSquaresCompleted) {
-
       //let toPrint=isX===false?"Player 2 Won":"Player 1 won";
-      alert('Match Drawn');
+      alert("Match Drawn");
       return;
-
-
-
-    }
-
-    else {
-
+    } else {
     }
   }
-const onReset=()=>{
+  const allPositions = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+  const onReset = () => {
+    console.log("reset");
 
-   console.log('reset');
-   
-   if(singlePlayer)
-   {
-      let sudoku=Array(9).fill(null);
-      let position=corners[Math.floor(Math.random( )* corners.length)];
-      const squaresCopy=[...sudoku];
-      squaresCopy[position]="X";
-      
+    if (singlePlayer) {
+      let sudoku = Array(9).fill(null);
+      let position = corners[Math.floor(Math.random() * corners.length)];
+      const squaresCopy = [...sudoku];
+      squaresCopy[position] = "X";
+
       setComputerMoveCounter(1);
       setPlayerMoveCounter(0);
       setSquares(squaresCopy);
-   }
-   else{
+    } else {
+      var elements = document.getElementsByClassName("block");
+
+      // Iterate through the elements and disable pointer events
+      for (var i = 0; i < elements.length; i++) {
+        elements[i].style.pointerEvents = "auto";
+      }
       setSquares(Array(9).fill(null));
-   }
-
-
-
-}
+    }
+  };
   function tossResult() {
-    let result = Math.random() < 0.5 ? 'Computer Move First' : 'You Move First';
+    let result = Math.random() < 0.5 ? "Computer Move First" : "You Move First";
     setTimeout(() => {
-      setTossResult(result)
+      setTossResult(result);
     }, 10);
 
     setTimeout(() => {
-      setToss(true)
+      setToss(true);
       ComputerFirstMove();
-
     }, 80);
-
   }
 
   useEffect(() => {
     if (singlePlayer) {
-      tossResult()
+      tossResult();
     }
+  }, [singlePlayer]);
 
-  }, [singlePlayer])
-
-
-
-
-
-
-
-
-  console.log(squares)
-
+  console.log(squares);
 
   return (
-
-
     <>
-
-      {hideSudoku ?
-        (
-          <>
-            <h1 className='head'><b> Play Tic Tac Toe</b></h1>
-            <div className='links'>
-              <div id='singlePlayer'><div onClick={playWithComputer}> Single Player</div></div>
-              <div id='doublePlayer'><div onClick={playWithAnotherPlayer}> Double Player</div></div>
-
+      {hideSudoku ? (
+        <>
+          <h1 className="head">
+            <b> Play Tic Tac Toe</b>
+          </h1>
+          <div className="links">
+            <div id="singlePlayer">
+              <div onClick={playWithComputer}> Single Player</div>
             </div>
-          </>
-        ) : (
-          <>
-
-            {singlePlayer && !toss && <div>
+            <div id="doublePlayer">
+              <div onClick={playWithAnotherPlayer}> Double Player</div>
+            </div>
+          </div>
+        </>
+      ) : (
+        <>
+          {singlePlayer && !toss && (
+            <div>
               <h1>Toss For First Move</h1>
               {TossResult == "" && <h2>Toss in progress...</h2>}
               <h2>{TossResult}</h2>
-            </div>}
-            {toss && <div className="container">
+            </div>
+          )}
+          {toss && (
+            <div className="container">
               <div>
-                <div className='box'>
+                <div className="box">
                   <Block value={squares[0]} onClick={() => Move(0)} id="0" />
                   <Block value={squares[1]} onClick={() => Move(1)} id="1" />
                   <Block value={squares[2]} onClick={() => Move(2)} id="2" />
                 </div>
 
-                <div className='box'>
+                <div className="box">
                   <Block value={squares[3]} onClick={() => Move(3)} id="3" />
                   <Block value={squares[4]} onClick={() => Move(4)} id="4" />
                   <Block value={squares[5]} onClick={() => Move(5)} id="5" />
                 </div>
 
-                <div className='box'>
+                <div className="box">
                   <Block value={squares[6]} onClick={() => Move(6)} id="6" />
                   <Block value={squares[7]} onClick={() => Move(7)} id="7" />
                   <Block value={squares[8]} onClick={() => Move(8)} id="8" />
                 </div>
 
                 <div>
-                   <button style={{backgroundColor: 'red',borderRadius:10, height:40 ,width:60 , margin:10}  } 
-   
-                        onClick={onReset}>Reset</button>
+                  <button
+                    style={{
+                      backgroundColor: "red",
+                      borderRadius: 10,
+                      height: 40,
+                      width: 60,
+                      margin: 10,
+                    }}
+                    onClick={onReset}
+                  >
+                    Reset
+                  </button>
                 </div>
-
-
               </div>
-            </div>}
-          </>
-        )}
+            </div>
+          )}
+        </>
+      )}
     </>
   );
 }
