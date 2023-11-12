@@ -525,7 +525,12 @@ function App() {
   const allPositions = [0, 1, 2, 3, 4, 5, 6, 7, 8];
   const onReset = () => {
     console.log("reset");
+   var elements = document.getElementsByClassName("block");
 
+      // Iterate through the elements and disable pointer events
+      for (var i = 0; i < elements.length; i++) {
+        elements[i].style.pointerEvents = "auto";
+      }
     if (singlePlayer) {
       let sudoku = Array(9).fill(null);
       let position = corners[Math.floor(Math.random() * corners.length)];
@@ -536,12 +541,7 @@ function App() {
       setPlayerMoveCounter(0);
       setSquares(squaresCopy);
     } else {
-      var elements = document.getElementsByClassName("block");
-
-      // Iterate through the elements and disable pointer events
-      for (var i = 0; i < elements.length; i++) {
-        elements[i].style.pointerEvents = "auto";
-      }
+     
       setSquares(Array(9).fill(null));
     }
   };
